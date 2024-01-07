@@ -34,8 +34,8 @@ const App: React.FC = () => {
   const ResumePauseButton = () => {
     return (
       <button
-        className={`w-auto p-3 text-lg ${
-          isActive ? "bg-orange-300" : "bg-green-300"
+        className={`w-32 h-auto p-2 text-lg rounded-lg border-2 border-transparent hover:border-stone-500 ${
+          isActive ? "bg-orange-300" : "bg-emerald-300"
         } `}
         onClick={() => setActive(!isActive)}
       >
