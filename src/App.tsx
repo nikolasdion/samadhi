@@ -1,34 +1,57 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useRef, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
+const formatTime = (timeInS: number): string => {
+  const min = Math.floor(timeInS / 60);
+  const sec = timeInS % 60;
+
+  return `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
+};
+
+const App: React.FC = () => {
+  const [time, setTime] = useState(150);
+  const [isActive, setActive] = useState(false);
+  const interval = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (time <= 0) {
+      setActive(false);
+      // TODO: play sound
+    } else {
+      if (isActive) {
+        interval.current = setInterval(() => {
+          setTime((time) => time - 1);
+        }, 1000);
+      } else {
+        if (interval.current) clearInterval(interval.current);
+      }
+    }
+
+    return () => {
+      if (interval.current) clearInterval(interval.current);
+    };
+  }, [isActive, time]);
+
+  const ResumePauseButton = () => {
+    return (
+      <button
+        className={`w-auto p-3 text-lg ${
+          isActive ? "bg-orange-300" : "bg-green-300"
+        } `}
+        onClick={() => setActive(!isActive)}
+      >
+        {isActive ? "Pause" : "Resume"}
+      </button>
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="bg-slate-300 h-screen grid place-items-center">
+      <div className="text-center">
+        <p className="text-5xl font-mono">{formatTime(time)}</p>
+        {ResumePauseButton()}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   );
-}
+};
 
 export default App;
