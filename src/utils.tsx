@@ -5,7 +5,7 @@ export function formatTime(timeInS: number): string {
 }
 
 export function getHoursMinutesSeconds(
-  totalInSeconds: number
+  totalInSeconds: number,
 ): [number, number, number] {
   const hours = Math.floor(totalInSeconds / 3600);
   const minutes = Math.floor((totalInSeconds % 3600) / 60);
