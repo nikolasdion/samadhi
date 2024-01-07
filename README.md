@@ -1,6 +1,6 @@
 # Meditation Timer
 
-A browser-based timer for meditation. Note that this is still a work in progress. To see the deployed application, go to <samadhi.nikolasdion.com>.
+A browser-based timer for meditation. Note that this is still a work in progress. To try out the deployed application, go to <https://samadhi.nikolasdion.com>.
 
 ## Building and running
 
