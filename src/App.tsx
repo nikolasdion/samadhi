@@ -1,55 +1,63 @@
-import { useEffect, useRef, useState } from "react";
-
-const formatTime = (timeInS: number): string => {
-  const min = Math.floor(timeInS / 60);
-  const sec = timeInS % 60;
-
-  return `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
-};
+import { useState } from "react";
+import Timer from "./Timer";
+import Button from "./Button";
 
 const App: React.FC = () => {
-  const [time, setTime] = useState(150);
-  const [isActive, setActive] = useState(false);
-  const interval = useRef<number | null>(null);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(15);
+  const [seconds, setSeconds] = useState(0);
+  const [timerStarted, setTimerStarted] = useState(false);
 
-  useEffect(() => {
-    if (time <= 0) {
-      setActive(false);
-      // TODO: play sound
-    } else {
-      if (isActive) {
-        interval.current = setInterval(() => {
-          setTime((time) => time - 1);
-        }, 1000);
-      } else {
-        if (interval.current) clearInterval(interval.current);
-      }
-    }
+  const startTimer = () => {
+    setTimerStarted(true);
+  };
 
-    return () => {
-      if (interval.current) clearInterval(interval.current);
-    };
-  }, [isActive, time]);
-
-  const ResumePauseButton = () => {
-    return (
-      <button
-        className={`w-32 h-auto p-2 text-lg rounded-lg border-2 border-transparent hover:border-stone-500 ${
-          isActive ? "bg-orange-300" : "bg-emerald-300"
-        } `}
-        onClick={() => setActive(!isActive)}
-      >
-        {isActive ? "Pause" : "Resume"}
-      </button>
-    );
+  const stopTimer = () => {
+    setTimerStarted(false);
   };
 
   return (
-    <div className="bg-slate-300 h-screen grid place-items-center">
-      <div className="text-center">
-        <p className="text-5xl font-mono">{formatTime(time)}</p>
-        {ResumePauseButton()}
-      </div>
+    <div className="bg-gradient-to-br from-slate-900 to-gray-950 h-screen grid place-items-center text-gray-400">
+      {timerStarted ? (
+        <Timer
+          initialTime={hours * 3600 + minutes * 60 + seconds}
+          onStop={stopTimer}
+        />
+      ) : (
+        <div className="text-center">
+          <p className="text-5xl font-mono">
+            <input
+              className="w-20 font-mono bg-transparent"
+              type="number"
+              min={0}
+              max={24}
+              value={hours}
+              onChange={(e) => setHours(+e.target.value)}
+            />
+            {"h "}
+            <input
+              className="w-20 font-mono bg-transparent"
+              type="number"
+              min={0}
+              max={59}
+              value={minutes}
+              onChange={(e) => setMinutes(+e.target.value)}
+            />
+            {"m "}
+            <input
+              className="w-20 font-mono bg-transparent"
+              type="number"
+              min={0}
+              max={59}
+              value={seconds}
+              onChange={(e) => setSeconds(+e.target.value)}
+            />
+            {"s"}
+          </p>
+
+          <Button onClick={startTimer} text="Start" />
+        </div>
+      )}
     </div>
   );
 };
