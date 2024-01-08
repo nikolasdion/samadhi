@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Button from "./Button";
+import Button from "./components/Button";
 import SingingBowl from "./assets/singing-bowl.mp3";
 import { formatTime } from "./utils";
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Timer from "./Timer";
-import Button from "./Button";
+import Button from "./components/Button";
 import { convertToSeconds } from "./utils";
+import AboutModal from "./AboutModal";
 
 function getSectionDividers(
   initialTime: number,
@@ -25,8 +26,8 @@ const App: React.FC = () => {
   const [minutes, setMinutes] = useState(15);
   const [seconds, setSeconds] = useState(0);
   const [timerStarted, setTimerStarted] = useState(false);
-
   const [sectionCount, setSectionCount] = useState(1);
+  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
 
   const startTimer = () => {
     setTimerStarted(true);
@@ -51,7 +52,7 @@ const App: React.FC = () => {
         <div className="text-center">
           <p className="text-5xl font-mono">
             <input
-              className="w-20 font-mono bg-transparent"
+              className="w-20 font-mono bg-transparent text-center"
               type="number"
               min={0}
               max={24}
@@ -60,7 +61,7 @@ const App: React.FC = () => {
             />
             {"h "}
             <input
-              className="w-20 font-mono bg-transparent"
+              className="w-20 font-mono bg-transparent text-center"
               type="number"
               min={0}
               max={59}
@@ -69,7 +70,7 @@ const App: React.FC = () => {
             />
             {"m "}
             <input
-              className="w-20 font-mono bg-transparent"
+              className="w-20 font-mono bg-transparent text-center"
               type="number"
               min={0}
               max={59}
@@ -78,10 +79,10 @@ const App: React.FC = () => {
             />
             {"s"}
           </p>
-          <p className="text-2xl font-mono">
+          <p className="text-2xl">
             Number of sections:
             <input
-              className="w-20 font-mono bg-transparent"
+              className="w-10 font-mono bg-transparent text-center"
               type="number"
               min={1}
               max={20}
@@ -91,6 +92,11 @@ const App: React.FC = () => {
           </p>
 
           <Button onClick={startTimer} text="Start" />
+          <Button onClick={() => setAboutModalOpen(true)} text="About" />
+          <AboutModal
+            isOpen={isAboutModalOpen}
+            onClose={() => setAboutModalOpen(false)}
+          />
         </div>
       )}
     </div>
