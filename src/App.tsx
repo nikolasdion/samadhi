@@ -1,12 +1,32 @@
 import { useState } from "react";
 import Timer from "./Timer";
 import Button from "./Button";
+import { convertToSeconds } from "./utils";
+
+function getSectionDividers(
+  initialTime: number,
+  sectionCount: number
+): number[] {
+  const sectionLength = Math.ceil(initialTime / sectionCount);
+  const sectionDividers = [];
+
+  let remaining = initialTime - sectionLength;
+
+  while (remaining > 0) {
+    sectionDividers.push(remaining);
+    remaining = remaining - sectionLength;
+  }
+
+  return sectionDividers;
+}
 
 const App: React.FC = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(15);
   const [seconds, setSeconds] = useState(0);
   const [timerStarted, setTimerStarted] = useState(false);
+
+  const [sectionCount, setSectionCount] = useState(1);
 
   const startTimer = () => {
     setTimerStarted(true);
@@ -20,8 +40,12 @@ const App: React.FC = () => {
     <div className="bg-gradient-to-br from-slate-900 to-gray-950 h-screen grid place-items-center text-gray-400">
       {timerStarted ? (
         <Timer
-          initialTime={hours * 3600 + minutes * 60 + seconds}
+          initialTime={convertToSeconds(hours, minutes, seconds)}
           onStop={stopTimer}
+          sectionDividers={getSectionDividers(
+            convertToSeconds(hours, minutes, seconds),
+            sectionCount
+          )}
         />
       ) : (
         <div className="text-center">
@@ -53,6 +77,17 @@ const App: React.FC = () => {
               onChange={(e) => setSeconds(+e.target.value)}
             />
             {"s"}
+          </p>
+          <p className="text-2xl font-mono">
+            Number of sections:
+            <input
+              className="w-20 font-mono bg-transparent"
+              type="number"
+              min={1}
+              max={20}
+              value={sectionCount}
+              onChange={(e) => setSectionCount(+e.target.value)}
+            />
           </p>
 
           <Button onClick={startTimer} text="Start" />

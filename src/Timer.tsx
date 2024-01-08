@@ -7,11 +7,11 @@ interface Props {
   initialTime: number;
   onStop: () => void;
 
-  // TODO - allow the meditation to be divided into equal sessions
-  sections?: number;
+  // Seconds at which a bell should be rung to indicate the end of one section
+  sectionDividers: number[];
 }
 
-const Timer: React.FC<Props> = ({ initialTime, onStop }) => {
+const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const [remaining, setRemaining] = useState(initialTime);
 
   const [isActive, setActive] = useState(true);
@@ -25,8 +25,8 @@ const Timer: React.FC<Props> = ({ initialTime, onStop }) => {
       onStop();
     } else {
       if (isActive) {
-        if (remaining === initialTime) {
-          // Play sound at the start of the timer
+        if (remaining === initialTime || sectionDividers.includes(remaining)) {
+          // Play sound at the start of the timer or the start of each section
           player.current.play();
         }
         // Timer is running
@@ -42,7 +42,7 @@ const Timer: React.FC<Props> = ({ initialTime, onStop }) => {
     return () => {
       if (interval.current) clearInterval(interval.current);
     };
-  }, [isActive, remaining, onStop, player, initialTime]);
+  }, [isActive, remaining, onStop, player, initialTime, sectionDividers]);
 
   return (
     <div className="text-center grid grid-flow-row">
