@@ -18,10 +18,6 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const interval = useRef<number>();
   const player = useRef<HTMLAudioElement>(new Audio(SingingBowl));
 
-  const circleDashOffset = `${(remaining / initialTime) * 451}px`;
-
-  console.log(circleDashOffset);
-
   useEffect(() => {
     if (remaining <= 0) {
       // We've reached the end of the countdown.
@@ -77,26 +73,26 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
         </div>
       </div>
 
-      {/* Centre indicator - for debugginf */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 z-50" />
+      {/* Centre indicator - for debugging */}
+      {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 z-50" /> */}
 
       {/* Circle indicating progress */}
-      <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-full z-10">
+      <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[800px] z-10 -rotate-90">
         <circle
-          r="90"
+          r="250"
           cy="50%"
           cx="50%"
           className="fill-transparent stroke-slate-500 stroke-2 "
         ></circle>
         <circle
-          r="90"
+          r="250"
           cx="50%"
           cy="50%"
           style={{
-            strokeDasharray: "451px",
-            strokeDashoffset: circleDashOffset,
+            strokeDasharray: "1570px", // 2 * pi * radius
+            strokeDashoffset: `${(remaining / initialTime) * 1570}px`,
           }}
-          className="fill-transparent stroke-slate-100  stroke-2 "
+          className="fill-transparent stroke-slate-800  stroke-2 "
         ></circle>
       </svg>
     </div>
