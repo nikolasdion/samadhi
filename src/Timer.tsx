@@ -15,8 +15,12 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const [remaining, setRemaining] = useState(initialTime);
 
   const [isActive, setActive] = useState(true);
-  const interval = useRef<number | null>(null);
+  const interval = useRef<number>();
   const player = useRef<HTMLAudioElement>(new Audio(SingingBowl));
+
+  const circleDashOffset = `${(remaining / initialTime) * 451}px`;
+
+  console.log(circleDashOffset);
 
   useEffect(() => {
     if (remaining <= 0) {
@@ -47,32 +51,54 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const [hours, minutes, seconds] = getHoursMinutesSeconds(remaining);
 
   return (
-    <div className="text-center grid grid-flow-row">
-      <p className="text-5xl m-4">
-        <input
-          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
-          value={hours}
-        />
-        {" h "}
-        <input
-          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
-          value={(minutes < 10 ? "0" : "") + minutes}
-        />
-        {" m "}
-        <input
-          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
-          value={(seconds < 10 ? "0" : "") + seconds}
-        />
-        {" s"}
-      </p>{" "}
-      <div>
-        {isActive ? (
-          <Button text="Pause" onClick={() => setActive(false)} />
-        ) : (
-          <Button text="Resume" onClick={() => setActive(true)} />
-        )}
-        <Button text="Stop" onClick={onStop} />
+    <div className="text-center grid grid-flow-row z-0">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        <p className="text-5xl m-4">
+          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+            {hours}
+          </div>
+          {" h "}
+          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+            {(minutes < 10 ? "0" : "") + minutes}
+          </div>
+          {" m "}
+          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+            {(seconds < 10 ? "0" : "") + seconds}
+          </div>
+          {" s"}
+        </p>{" "}
+        <div>
+          {isActive ? (
+            <Button text="Pause" onClick={() => setActive(false)} />
+          ) : (
+            <Button text="Resume" onClick={() => setActive(true)} />
+          )}
+          <Button text="Stop" onClick={onStop} />
+        </div>
       </div>
+
+      {/* Centre indicator - for debugginf */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 z-50" />
+
+      {/* Circle indicating progress */}
+      <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-full z-10">
+        <circle
+          r="90"
+          cy="50%"
+          cx="50%"
+          className="fill-transparent stroke-slate-500 stroke-2 "
+        ></circle>
+        <circle
+          r="90"
+          cx="50%"
+          cy="50%"
+          style={{
+            strokeDasharray: "451px",
+            strokeDashoffset: circleDashOffset,
+          }}
+          className="fill-transparent stroke-slate-100  stroke-2 "
+        ></circle>
+      </svg>
     </div>
   );
 };

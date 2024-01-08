@@ -52,7 +52,7 @@ const App: React.FC = () => {
         <div className="text-center">
           <p className="text-5xl m-4">
             <input
-              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1 "
               type="number"
               min={0}
               max={24}
@@ -61,7 +61,7 @@ const App: React.FC = () => {
             />
             {" h "}
             <input
-              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1"
               type="number"
               min={0}
               max={59}
@@ -70,7 +70,7 @@ const App: React.FC = () => {
             />
             {" m "}
             <input
-              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1"
               type="number"
               min={0}
               max={59}
@@ -82,7 +82,7 @@ const App: React.FC = () => {
           <p className="text-2xl">
             {"Number of sections "}
             <input
-              className="w-12 font-mono bg-gray-800 text-center rounded p-1"
+              className="w-12 font-mono bg-gray-900 text-center rounded p-1"
               type="number"
               min={1}
               max={20}
