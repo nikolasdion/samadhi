@@ -15,7 +15,7 @@ const Timer: React.FC<Props> = ({ initialTime, onStop }) => {
   const [remaining, setRemaining] = useState(initialTime);
 
   const [isActive, setActive] = useState(true);
-  const interval = useRef<NodeJS.Timeout | null>(null);
+  const interval = useRef<number | null>(null);
   const player = useRef<HTMLAudioElement>(new Audio(SingingBowl));
 
   useEffect(() => {
