@@ -38,7 +38,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-gray-950 h-screen grid place-items-center text-gray-400">
+    <div className="bg-gradient-to-b from-slate-900 to-gray-950 h-screen grid place-items-center text-gray-400">
       {timerStarted ? (
         <Timer
           initialTime={convertToSeconds(hours, minutes, seconds)}
@@ -50,39 +50,39 @@ const App: React.FC = () => {
         />
       ) : (
         <div className="text-center">
-          <p className="text-5xl font-mono">
+          <p className="text-5xl m-4">
             <input
-              className="w-20 font-mono bg-transparent text-center"
+              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
               type="number"
               min={0}
               max={24}
               value={hours}
               onChange={(e) => setHours(+e.target.value)}
             />
-            {"h "}
+            {" h "}
             <input
-              className="w-20 font-mono bg-transparent text-center"
+              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
               type="number"
               min={0}
               max={59}
               value={minutes}
               onChange={(e) => setMinutes(+e.target.value)}
             />
-            {"m "}
+            {" m "}
             <input
-              className="w-20 font-mono bg-transparent text-center"
+              className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
               type="number"
               min={0}
               max={59}
               value={seconds}
               onChange={(e) => setSeconds(+e.target.value)}
             />
-            {"s"}
+            {" s"}
           </p>
           <p className="text-2xl">
-            Number of sections:
+            {"Number of sections "}
             <input
-              className="w-10 font-mono bg-transparent text-center"
+              className="w-12 font-mono bg-gray-800 text-center rounded p-1"
               type="number"
               min={1}
               max={20}

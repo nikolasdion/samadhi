@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./components/Button";
 import SingingBowl from "./assets/singing-bowl.mp3";
-import { formatTime } from "./utils";
+import { getHoursMinutesSeconds } from "./utils";
 
 interface Props {
   initialTime: number;
@@ -44,11 +44,28 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
     };
   }, [isActive, remaining, onStop, player, initialTime, sectionDividers]);
 
+  const [hours, minutes, seconds] = getHoursMinutesSeconds(remaining);
+
   return (
     <div className="text-center grid grid-flow-row">
-      <p className="text-5xl font-mono">{formatTime(remaining)}</p>
+      <p className="text-5xl m-4">
+        <input
+          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+          value={hours}
+        />
+        {" h "}
+        <input
+          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+          value={(minutes < 10 ? "0" : "") + minutes}
+        />
+        {" m "}
+        <input
+          className="w-24 font-mono bg-gray-800 text-center rounded-xl p-1"
+          value={(seconds < 10 ? "0" : "") + seconds}
+        />
+        {" s"}
+      </p>{" "}
       <div>
-        {" "}
         {isActive ? (
           <Button text="Pause" onClick={() => setActive(false)} />
         ) : (

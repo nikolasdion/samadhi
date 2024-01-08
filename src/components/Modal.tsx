@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Button from "./Button";
 
 interface Props {
   isOpen: boolean;
@@ -30,9 +31,7 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, children }) => {
       className="w-1/2 h-1/2 p-5 bg-gray-900 bg-opacity-50 text-gray-400 rounded backdrop-blur-sm"
     >
       {children}
-      <button className=" bg-red-950 p-2 rounded " onClick={onClose}>
-        Close
-      </button>
+      <Button onClick={onClose} text="Close" />
     </dialog>
   );
 };
