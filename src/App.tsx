@@ -1,4 +1,6 @@
 import { useState } from "react";
+import NoSleep from "nosleep.js";
+
 import Timer from "./Timer";
 import Button from "./components/Button";
 import { convertToSeconds } from "./utils";
@@ -29,12 +31,16 @@ const App: React.FC = () => {
   const [sectionCount, setSectionCount] = useState(1);
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
 
+  const noSleep = new NoSleep();
+
   const startTimer = () => {
     setTimerStarted(true);
+    noSleep.enable();
   };
 
   const stopTimer = () => {
     setTimerStarted(false);
+    noSleep.disable();
   };
 
   return (
