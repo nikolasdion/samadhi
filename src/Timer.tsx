@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./components/Button";
-import SingingBowl from "./assets/singing-bowl.mp3";
+import SingingBowl from "/singing-bowl.mp3";
 import { getHoursMinutesSeconds } from "./utils";
 
 interface Props {
@@ -15,7 +15,7 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const [remaining, setRemaining] = useState(initialTime);
 
   const [isActive, setActive] = useState(true);
-  const interval = useRef<number>();
+  const interval = useRef<NodeJS.Timeout>();
   const player = useRef<HTMLAudioElement>(new Audio(SingingBowl));
 
   useEffect(() => {
