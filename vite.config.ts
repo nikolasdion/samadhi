@@ -21,7 +21,7 @@ export default defineConfig({
           },
         ],
         start_url: "/",
-        display: "minimal-ui",
+        display: "standalone",
         theme_color: "#0F172A",
         background_color: "#0F172A",
         lang: "en",

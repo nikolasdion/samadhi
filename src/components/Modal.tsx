@@ -28,7 +28,7 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, children }) => {
     <dialog
       ref={modalRef}
       onKeyDown={handleKeyDown}
-      className="w-1/2 h-1/2 p-5 bg-gray-900 bg-opacity-50 text-gray-400 rounded backdrop-blur-sm"
+      className="h-1/2 w-1/2 rounded bg-gray-900 bg-opacity-50 p-5 text-gray-400 backdrop-blur-sm"
     >
       {children}
       <Button onClick={onClose} text="Close" />

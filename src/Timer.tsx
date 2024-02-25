@@ -47,18 +47,18 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
   const [hours, minutes, seconds] = getHoursMinutesSeconds(remaining);
 
   return (
-    <div className="text-center grid grid-flow-row z-0">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-        <p className="text-5xl m-4">
-          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+    <div className="z-0 grid grid-flow-row text-center">
+      <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+        <p className="m-4 text-5xl">
+          <div className="inline-block w-24 rounded-xl bg-gray-900 p-2 text-center font-mono">
             {hours}
           </div>
           {" h "}
-          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+          <div className="inline-block w-24 rounded-xl bg-gray-900 p-2 text-center font-mono">
             {(minutes < 10 ? "0" : "") + minutes}
           </div>
           {" m "}
-          <div className="w-24 p-2 font-mono bg-gray-900 text-center rounded-xl inline-block">
+          <div className="inline-block w-24 rounded-xl bg-gray-900 p-2 text-center font-mono">
             {(seconds < 10 ? "0" : "") + seconds}
           </div>
           {" s"}
@@ -77,7 +77,7 @@ const Timer: React.FC<Props> = ({ initialTime, onStop, sectionDividers }) => {
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 z-50" /> */}
 
       {/* Circle indicating progress */}
-      <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[800px] z-10 -rotate-90">
+      <svg className="absolute left-1/2 top-1/2 z-10 size-[800px] -translate-x-1/2 -translate-y-1/2 -rotate-90">
         <circle
           r="250"
           cy="50%"

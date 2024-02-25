@@ -8,7 +8,7 @@ import AboutModal from "./AboutModal";
 
 function getSectionDividers(
   initialTime: number,
-  sectionCount: number
+  sectionCount: number,
 ): number[] {
   const sectionLength = Math.ceil(initialTime / sectionCount);
   const sectionDividers = [];
@@ -44,21 +44,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-slate-900 to-gray-950 h-screen grid place-items-center text-gray-400">
+    <div className="grid h-screen place-items-center bg-gradient-to-b from-slate-900 to-gray-950 text-gray-400">
       {timerStarted ? (
         <Timer
           initialTime={convertToSeconds(hours, minutes, seconds)}
           onStop={stopTimer}
           sectionDividers={getSectionDividers(
             convertToSeconds(hours, minutes, seconds),
-            sectionCount
+            sectionCount,
           )}
         />
       ) : (
         <div className="text-center">
-          <p className="text-5xl m-4">
+          <p className="m-4 text-5xl">
             <input
-              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1 "
+              className="w-24 rounded-xl bg-gray-900 p-1 text-center font-mono "
               type="number"
               min={0}
               max={24}
@@ -67,7 +67,7 @@ const App: React.FC = () => {
             />
             {" h "}
             <input
-              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1"
+              className="w-24 rounded-xl bg-gray-900 p-1 text-center font-mono"
               type="number"
               min={0}
               max={59}
@@ -76,7 +76,7 @@ const App: React.FC = () => {
             />
             {" m "}
             <input
-              className="w-24 font-mono bg-gray-900 text-center rounded-xl p-1"
+              className="w-24 rounded-xl bg-gray-900 p-1 text-center font-mono"
               type="number"
               min={0}
               max={59}
@@ -88,7 +88,7 @@ const App: React.FC = () => {
           <p className="text-2xl">
             {"Number of sections "}
             <input
-              className="w-12 font-mono bg-gray-900 text-center rounded p-1"
+              className="w-12 rounded bg-gray-900 p-1 text-center font-mono"
               type="number"
               min={1}
               max={20}

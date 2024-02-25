@@ -8,7 +8,7 @@ interface Props {
 const AboutModal: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="text-justify p-4">
+      <div className="p-4 text-justify">
         <ul>
           <li>
             <a href="https://github.com/nikolasdion/samadhi">GitHub</a>
